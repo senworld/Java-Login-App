@@ -17,16 +17,15 @@ jobs:
       with:
         name: maven-build
         path: ./target
-
-    deploy:
-      name: Run test suite
-      runs-on: self-hosted
-      container: ansible/ansible:latest
-      steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ansible-deploy
-          path: /tmp/.
-      - run: ls /tmp
+  deploy:
+    name: Run test suite
+    runs-on: self-hosted
+    container: ansible/ansible:latest
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: ansible-deploy
+        path: /tmp/.
+    - run: ls /tmp
       
