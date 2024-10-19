@@ -8,7 +8,6 @@ jobs:
     name: Build and Test
     runs-on: self-hosted
     container: maven:latest
-    # env:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -21,8 +20,12 @@ jobs:
     name: Deploy jar
     runs-on: self-hosted
     container: node:latest
+    env:
+      DB_URL: jdbc:mysql://localhost:3306/yourdatabase
+      DB_USERNAME: yourusername
+      DB_PASSWORD: yourpassword
     steps:
-    # - run: apt install nodejs
+    - run: apk install --nocache ansible
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
