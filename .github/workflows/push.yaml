@@ -19,6 +19,7 @@ jobs:
   deploy:
     name: Deploy jar
     runs-on: self-hosted
+    needs: build
     container: node:latest
     env:
       DB_URL: jdbc:mysql://localhost:3306/yourdatabase
