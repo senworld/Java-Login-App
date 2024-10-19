@@ -13,19 +13,19 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - run: mvn compile; mvn --no-transfer-progress test; mvn package; mvn validate
-    - uses: actions/upload-artifact@master
+    - uses: actions/upload-artifact@v4
       with:
         name: maven-build
-        path: ./target
+        path: target
   deploy:
-    name: Run test suite
+    name: Deploy jar
     runs-on: self-hosted
-    container: ansible/ansible:latest
+    container: ansible/ansible:ubuntu1604py3
     steps:
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
-        name: ansible-deploy
-        path: /tmp/.
-    - run: ls /tmp
+        name: maven-build
+        path: /tmp/artifact
+    - run: ls /tmp/artifact
       
