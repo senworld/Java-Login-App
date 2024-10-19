@@ -11,4 +11,4 @@ jobs:
     # env:
     steps:
     - name: Checkout code
-      run: echo "Hello from node"
+      run: sleep 150
