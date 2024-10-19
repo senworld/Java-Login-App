@@ -20,8 +20,9 @@ jobs:
   deploy:
     name: Deploy jar
     runs-on: self-hosted
-    container: ansible/ansible:ubuntu1604py3
+    container: node:latest
     steps:
+    # - run: apt install nodejs
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
