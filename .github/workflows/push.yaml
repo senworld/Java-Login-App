@@ -30,7 +30,7 @@ jobs:
       ANSIBLE_STDOUT_CALLBACK: yaml
     steps:
     - name: Install ansible
-      run: apt update; apt install software-properties-common; add-apt-repository --yes --update ppa:ansible/ansible; apt install ansible
+      run: apt update; apt install -y software-properties-common; add-apt-repository --yes --update ppa:ansible/ansible; apt install -y ansible
     - name: Checkout code
       uses: actions/checkout@v4   
     - name: Download artifact
