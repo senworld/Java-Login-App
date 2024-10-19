@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - run: mvn compile; mvn --no-transfer-progress test; mvn package; mvn validate
+    - run: mvn --no-transfer-progress compile; mvn test; mvn package; mvn validate
     - uses: actions/upload-artifact@v4
       with:
         name: maven-build
@@ -22,15 +22,27 @@ jobs:
     needs: build
     container: node:latest
     env:
+      # ANSIBLE_KEY: ${{ secrets.ansible_key }}
       DB_URL: jdbc:mysql://localhost:3306/yourdatabase
       DB_USERNAME: yourusername
       DB_PASSWORD: yourpassword
+      # WORKSPACE: ${{ github.workspace }}
+      ANSIBLE_STDOUT_CALLBACK: yaml
     steps:
-    - run: apk install --nocache ansible
+    - name: Install ansible
+      run: sudo apt update; sudo apt install software-properties-common; sudo add-apt-repository --yes --update ppa:ansible/ansible; sudo apt install ansible
+    - name: Checkout code
+      uses: actions/checkout@v4   
     - name: Download artifact
       uses: actions/download-artifact@v4
       with:
         name: maven-build
-        path: /tmp/artifact
-    - run: ls /tmp/artifact
+        path: ./ansible/artifact
+    # - name: Run Playbook
+    #   run:  |
+    #         cd ansible
+    #         echo "$ANSIBLE_KEY" > ANSIBLE_KEY
+    #         chown 400 HOST_KEY
+    #         sed -i "s|$|  ansible_ssh_private_key_file=$WORKSPACE/ansible/HOST_KEY|" inventory
+    #         ansible-playbook -i inventory -vv playbook.yml  
       
