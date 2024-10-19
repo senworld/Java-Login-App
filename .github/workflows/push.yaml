@@ -7,8 +7,9 @@ jobs:
   test:
     name: Run test suite
     runs-on: self-hosted
-    container: node:16
+    container: maven:latest
     # env:
     steps:
     - name: Checkout code
-      run: sleep 150
+      run: actions/checkout@v4
+    - run: mvn test
