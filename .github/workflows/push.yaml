@@ -11,4 +11,4 @@ jobs:
     # env:
     steps:
     - name: Checkout code
-      uses: echo "Hello from node"
+      run: echo "Hello from node"
